@@ -1,0 +1,164 @@
+[gd_scene load_steps=13 format=3 uid="uid://bceeaark1we1k"]
+
+[ext_resource type="Script" path="res://splash_screen.gd" id="1_7qpi4"]
+[ext_resource type="Texture2D" uid="uid://214v08bt8n50" path="res://InformalBunch Logo.jpeg" id="1_sgoyg"]
+[ext_resource type="Shader" path="res://CRT.gdshader" id="2_rwvlm"]
+[ext_resource type="AudioStream" uid="uid://bro5bechi5hd0" path="res://intro-sound-2-269294.mp3" id="4_i8pok"]
+[ext_resource type="Shader" path="res://test.gdshader" id="5_7670r"]
+[ext_resource type="Shader" path="res://water.gdshader" id="5_alem1"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_aeaph"]
+shader = ExtResource("2_rwvlm")
+shader_parameter/fisheye_strength = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_j6qpy"]
+shader = ExtResource("5_alem1")
+shader_parameter/uv_scale = 3.9
+shader_parameter/color_alpha = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_e407n"]
+shader = ExtResource("5_7670r")
+shader_parameter/Line_Smoothness = 0.045
+shader_parameter/Line_Width = 0.066
+shader_parameter/Brightness = 3.0
+shader_parameter/Rotation_deg = 30.0
+shader_parameter/Distortion = 1.8
+shader_parameter/Speed = 0.5
+shader_parameter/Position = 0.0
+shader_parameter/Position_Min = 0.25
+shader_parameter/Position_Max = 0.5
+shader_parameter/Alpha = 0.972
+
+[sub_resource type="Animation" id="Animation_pjfp4"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:scale:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Camera2D/ColorRect3:material:shader_parameter/color_alpha")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.0005, 0, 0.0005, 0),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="Animation" id="Animation_xbvya"]
+resource_name = "new_animation"
+length = 5.0
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0.0333334, 1.03333)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:scale:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0.0333334, 1.03333)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Camera2D/ColorRect3:material:shader_parameter/color_alpha")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 4.9)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_dpm8q"]
+_data = {
+"RESET": SubResource("Animation_pjfp4"),
+"new_animation": SubResource("Animation_xbvya")
+}
+
+[node name="SplashScreen" type="Node2D"]
+script = ExtResource("1_7qpi4")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="Camera2D"]
+offset_left = -6.38e+07
+offset_top = -4.82e+07
+offset_right = 6.38e+07
+offset_bottom = 4.78e+07
+color = Color(0, 0, 0, 1)
+
+[node name="Sprite2D" type="Sprite2D" parent="Camera2D"]
+position = Vector2(-4.00003, -1.99997)
+scale = Vector2(0.635742, 0.472656)
+texture = ExtResource("1_sgoyg")
+
+[node name="ColorRect2" type="ColorRect" parent="Camera2D"]
+material = SubResource("ShaderMaterial_aeaph")
+offset_left = -662.0
+offset_top = -486.0
+offset_right = 654.0
+offset_bottom = 482.0
+
+[node name="ColorRect3" type="ColorRect" parent="Camera2D"]
+material = SubResource("ShaderMaterial_j6qpy")
+offset_left = -675.0
+offset_top = -497.0
+offset_right = 654.0
+offset_bottom = 492.0
+
+[node name="Sprite2D3" type="Sprite2D" parent="Camera2D"]
+material = SubResource("ShaderMaterial_e407n")
+position = Vector2(-23, 12)
+scale = Vector2(0.635742, 0.472656)
+texture = ExtResource("1_sgoyg")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 5.0
+autostart = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_dpm8q")
+}
+autoplay = "new_animation"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_i8pok")
+volume_db = -20.155
+
+[connection signal="tree_entered" from="." to="." method="_on_tree_entered"]
+[connection signal="tree_exiting" from="." to="." method="_on_tree_exiting"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
